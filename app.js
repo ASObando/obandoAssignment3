@@ -17,26 +17,27 @@ var comicName = "";
 var image = "";
 
 app.get('/', function(req, res){
-    fetch('http://xkcd.com/info.0.json')
-        .then(res => res.json())
-        .then(json =>{
-        year = json.year;
-        comicName = json.title;
-        image = json.img;
-       });
+    fetchComic(true);
     res.render("index",{year: year, title: comicName, image: image});
 });
 
 app.get('/randomComic', function(req, res){
-    fetch('http://xkcd.com/614/info.0.json')
+    fetchComic(false);
+    res.render("index",{year: year, title: comicName, image: image});
+});
+
+function fetchComic(isCurrent){
+    var currentComic = 'http://xkcd.com/info.0.json';
+    var randComic = 'http://xkcd.com/'+Math.floor((Math.random() * 2220) + 1)+'/info.0.json';
+     fetch(isCurrent ? currentComic : randComic)
         .then(res => res.json())
         .then(json =>{
         year = json.year;
         comicName = json.title;
         image = json.img;
        });
-    res.render("index",{year: year, title: comicName, image: image});
-});
+
+}
 
 http.createServer(app).listen(port, function(){
 
