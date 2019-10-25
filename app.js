@@ -36,7 +36,6 @@ function fetchComic(isCurrent){
         comicName = json.title;
         image = json.img;
        });
-
 }
 
 http.createServer(app).listen(port, function(){
