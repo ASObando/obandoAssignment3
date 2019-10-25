@@ -23,7 +23,18 @@ app.get('/', function(req, res){
         year = json.year;
         comicName = json.title;
         image = json.img;
-        console.log(json)});
+       });
+    res.render("index",{year: year, title: comicName, image: image});
+});
+
+app.get('/randomComic', function(req, res){
+    fetch('http://xkcd.com/614/info.0.json')
+        .then(res => res.json())
+        .then(json =>{
+        year = json.year;
+        comicName = json.title;
+        image = json.img;
+       });
     res.render("index",{year: year, title: comicName, image: image});
 });
 
